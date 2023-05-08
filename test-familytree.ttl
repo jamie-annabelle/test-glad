@@ -1,0 +1,281 @@
+@prefix glad: <https://nas-rm-glad.github.io/ontology#> .
+@prefix rico: <https://www.ica.org/standards/RiC/ontology#> .
+
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix prov: <http://www.w3.org/TR/prov-o/> .
+@prefix skos:  <http://www.w3.org/2004/02/skos/core#> .
+@prefix schema:  <https://schema.org/> .
+@prefix opengov:  <http://example.org/> .
+
+#GLAD Classes
+
+glad:GovernmentBody a rico:Group;
+    skos:prefLabel "Government body"@en .
+
+glad:GovernmentAgency a rico:GovernmentBody, rico:CorporateBody;
+    skos:prefLabel "Government agency"@en .
+
+glad:Ministry a glad:GovernmentAgency;
+    skos:prefLabel "Ministry"@en.
+
+glad:StatutoryBoard a glad:GovernmentAgency;
+    skos:prefLabel "Statutory board"@en.
+
+glad:OrganOfState a glad:GovernmentAgency;
+    skos:prefLabel "Organ of State"@en.
+
+glad:SubEntity a rico:GovernmentBody;
+    skos:prefLabel "Sub-entity"@en .
+
+glad:Department a rico:SubEntity;
+    skos:prefLabel "Department"@en .
+
+glad:FunctionPerformanceRelation a rico:PerformanceRelation;
+    skos:prefLabel "Function performance relation"@en.
+
+glad:GovernmentBodySubEntityHierarchicalRelation a rico:AgentHierarchicalRelation;
+    skos:prefLabel "Government body to sub-entity relation"@en.
+
+glad:COFOGClass a rico:ActivityType;
+    skos:prefLabel "COFOG class"@en.
+
+glad:COFOGGroup a rico:ActivityType;
+    skos:prefLabel "COFOG group"@en .
+
+glad:COFOGDivision a rico:ActivityType;
+    skos:prefLabel "COFOG division"@en .
+
+glad:Function a rico:Activity;
+    skos:prefLabel "Function"@en.
+
+#GLAD OPs
+
+glad:functionPerformanceRelationHasSource rdfs:subPropertyOf rico:performanceRelationHasSource;
+    skos:prefLabel "function performance relation has source"@en;
+    rdfs:domain glad:FunctionPerformanceRelation;
+    rdfs:range glad:Function;
+    owl:inverseOf glad:functionIsSourceOfFunctionPerformanceRelation.
+
+glad:functionPerformanceRelationHasTarget rdfs:subPropertyOf rico:performanceRelationHasTarget;
+    skos:prefLabel "function performance relation has target"@en;
+    rdfs:domain glad:FunctionPerformanceRelation;
+    rdfs:range glad:GovernmentBody;
+    owl:inverseOf glad:agentIsSourceOfFunctionPerformanceRelation.
+
+glad:governmentBodySubEntityHierarchicalRelationHasSource rdfs:subPropertyOf rico:agentHierarchicalRelationHasSource;
+    skos:prefLabel "government body to sub-entity hierarchical relation has source"@en;
+    rdfs:domain glad:GovernmentBodySubEntityHierarchicalRelation;
+    rdfs:range glad:GovernmentBody;
+    owl:inverseOf glad:agentIsSourceOfGovernmentBodySubEntityHierarchicalRelation.
+
+glad:governmentBodySubEntityHierarchicalRelationHasTarget rdfs:subPropertyOf rico:agentHierarchicalRelationHasTarget;
+    skos:prefLabel "government body to sub-entity hierarchical relation has target"@en;
+    rdfs:domain glad:GovernmentBodySubEntityHierarchicalRelation;
+    rdfs:range glad:SubEntity;
+    owl:inverseOf glad:agentIsTargetOfGovernmentBodySubEntityHierarchicalRelation.
+
+glad:hasCOFOGClass rdfs:subPropertyOf rico:hasActivityType;
+    skos:prefLabel "has COFOG class"@en;
+    rdfs:domain glad:Function;
+    rdfs:range glad:COFOGClass .
+
+glad:hasCOFOGGroup rdfs:subPropertyOf skos:narrower;
+    skos:prefLabel "has COFOG group"@en;
+    rdfs:domain glad:COFOGClass;
+    rdfs:range glad:COFOGGroup .
+
+glad:hasCOFOGDivision rdfs:subPropertyOf skos:narrower;
+    skos:prefLabel "has COFOG division"@en;
+    rdfs:domain glad:COFOGGroup;
+    rdfs:range glad:COFOGDivision . 
+
+#Agency
+
+glad:001_Agency_URI a glad:Department;
+    skos:prefLabel "National Archives of Singapore"@en;
+    skos:altLabel "NAS"@en;
+    rico:hasOrHasIdentifier glad:001_Agency_GRID_ID , glad:001_Agency_TTE_ID;
+    rico:hasBeginningDate glad:001_Agency_Start_DR;
+    rico:hasEndDate glad:001_Agency_End_DR;
+    schema:logo <https://corporate.nas.gov.sg/images/naslogo.png>;
+    rico:descriptiveNote "Official custodian of Singapore's collective memory. It is responsible for the collection, preservation and management of Singapore's public and private archival records, ranging from government files, private memoirs, historical maps and photographs to oral history interviews and audio-visual materials."@en;
+    opengov:contact <https://www.sgdi.gov.sg/ministries/mci/statutory-boards/nlb/departments/alg/departments/nas>;
+    rdfs:seeAlso <https://corporate.nas.gov.sg/>;
+    glad:agentIsTargetOfGovernmentBodySubEntityHierarchicalRelation glad:001_020_GBSE_HR;
+    glad:agentIsTargetOfFunctionPerformanceRelation glad:001_001_FPR;
+    glad:agentIsTargetOfFunctionPerformanceRelation glad:001_002_FPR;
+    glad:agentIsTargetOfFunctionPerformanceRelation glad:001_003_FPR;
+    glad:agentIsTargetOfFunctionPerformanceRelation glad:001_004_FPR;
+    glad:agentIsTargetOfFunctionPerformanceRelation glad:001_005_FPR;
+    glad:agentIsTargetOfFunctionPerformanceRelation glad:001_006_FPR;
+    glad:agentIsTargetOfFunctionPerformanceRelation glad:001_007_FPR;
+    glad:agentIsTargetOfFunctionPerformanceRelation glad:001_008_FPR . 
+
+#Identifiers
+glad:001_Agency_GRID_ID a rico:Identifier;
+    skos:prefLabel "NAS GRID ID";
+    rico:textualValue "109";
+    rico:source "GRID"@en.
+
+glad:001_Agency_TTE_ID a rico:Identifier;
+    skos:prefLabel "NAS TTE ID";
+    rico:textualValue "18539980";
+    rico:source "TTE"@en.
+
+#Agency Start and End Dates
+glad:001_Agency_Start_DR a rico:DateRange;
+    skos:prefLabel "NAS Starting Date Range";
+    rico:hasBeginningDate glad:001_Agency_Start_DR_SD;
+    rico:hasEndDate glad:001_Agency_Start_DR_ED.
+
+glad:001_Agency_Start_DR_SD a rico:SingleDate;
+    skos:prefLabel "NAS Starting Date Range - Start Date";
+    rico:normalizedDateValue "1993-08-01"^^xsd:date.
+
+glad:001_Agency_Start_DR_ED a rico:SingleDate;
+    skos:prefLabel "NAS Starting Date Range - End Date";
+    rico:normalizedDateValue "1993-08-31"^^xsd:date.
+
+glad:001_Agency_End_DR a rico:DateRange;
+    skos:prefLabel "NAS Ending Date Range";
+    rico:hasBeginningDate glad:001_Agency_End_DR_SD;
+    rico:hasEndDate glad:001_Agency_End_DR_ED.
+
+glad:001_Agency_End_DR_SD a rico:SingleDate;
+    skos:prefLabel "NAS Ending Date Range - Start Date";
+    rico:normalizedDateValue "2023-05-08"^^xsd:date.
+
+glad:001_Agency_End_DR_ED a rico:SingleDate;
+    skos:prefLabel "NAS Ending Date Range - End Date";
+    rico:normalizedDateValue "2023-05-08"^^xsd:date.
+
+#Function Performance Relations
+
+glad:001_001_FPR a glad:FunctionPerformanceRelation;
+    rico:hasBeginningDate glad:001_001_FPR_Start_DR;
+    rico:hasEndDate glad:001_001_FPR_End_DR;
+    rico:source <https://sso.agc.gov.sg/Act/NHBA1993/Historical/19930801?DocDate=19930504170000&ValidDate=19930801>.
+
+glad:001_002_FPR a glad:FunctionPerformanceRelation;
+    rico:hasBeginningDate glad:001_002_FPR_Start_DR;
+    rico:hasEndDate glad:001_002_FPR_End_DR.
+
+glad:001_003_FPR a glad:FunctionPerformanceRelation;
+    rico:hasBeginningDate glad:001_003_FPR_Start_DR;
+    rico:hasEndDate glad:001_003_FPR_End_DR.
+
+glad:001_004_FPR a glad:FunctionPerformanceRelation;
+    rico:hasBeginningDate glad:001_004_FPR_Start_DR;
+    rico:hasEndDate glad:001_004_FPR_End_DR.
+
+glad:001_005_FPR a glad:FunctionPerformanceRelation;
+    rico:hasBeginningDate glad:001_005_FPR_Start_DR;
+    rico:hasEndDate glad:001_005_FPR_End_DR.
+
+glad:001_006_FPR a glad:FunctionPerformanceRelation;
+    rico:hasBeginningDate glad:001_006_FPR_Start_DR;
+    rico:hasEndDate glad:001_006_FPR_End_DR.
+
+glad:001_007_FPR a glad:FunctionPerformanceRelation;
+    rico:hasBeginningDate glad:001_007_FPR_Start_DR;
+    rico:hasEndDate glad:001_007_FPR_End_DR.
+
+glad:001_008_FPR a glad:FunctionPerformanceRelation;
+    rico:hasBeginningDate glad:001_008_FPR_Start_DR;
+    rico:hasEndDate glad:001_008_FPR_End_DR.
+
+#Function Performance Relations Start and End Dates
+
+glad:001_001_FPR_Start_DR a rico:DateRange;
+    skos:prefLabel "NAS-Function_001 Starting Date Range";
+    rico:hasBeginningDate glad:001_001_FPR_Start_DR_SD;
+    rico:hasEndDate glad:001_001_FPR_Start_DR_ED.
+
+glad:001_001_FPR_Start_DR_SD a rico:SingleDate;
+    skos:prefLabel "NAS-Function_001 Starting Date Range - Start Date";
+    rico:normalizedDateValue "1993-08-01"^^xsd:date.
+
+glad:001_001_FPR_Start_DR_ED a rico:SingleDate;
+    skos:prefLabel "NAS-Function_001 Starting Date Range - End Date";
+    rico:normalizedDateValue "1993-08-31"^^xsd:date.
+
+glad:001_001_FPR_End_DR a rico:DateRange;
+    skos:prefLabel "NAS-Function_001 Ending Date Range";
+    rico:hasBeginningDate glad:001_001_FPR_End_DR_SD;
+    rico:hasEndDate glad:001_001_FPR_End_DR_ED.
+
+glad:001_001_FPR_End_DR_SD a rico:SingleDate;
+    skos:prefLabel "NAS-Function_001 Ending Date Range - Start Date";
+    rico:normalizedDateValue "2023-05-08"^^xsd:date.
+
+glad:001_001_FPR_End_DR_ED a rico:SingleDate;
+    skos:prefLabel "NAS-Function_001 Ending Date Range - End Date";
+    rico:normalizedDateValue "2023-05-08"^^xsd:date.
+
+#Functions
+glad:001_Function a glad:Function;
+    skos:prefLabel "must examine the public records in any public office and advise that office as to their care and custody";
+    glad:functionIsSourceOfFunctionPerformanceRelation glad:001_001_FPR;
+    glad:hasCOFOGClass glad:001_COFOG_Class.
+
+glad:002_Function a glad:Function;
+    skos:prefLabel "must take necessary measures to classify, identify, preserve and restore public records";
+    glad:functionIsSourceOfFunctionPerformanceRelation glad:001_002_FPR;
+    glad:hasCOFOGClass glad:001_COFOG_Class.
+
+glad:003_Function a glad:Function;
+    skos:prefLabel "must make known information concerning archives by any means, including publications, exhibitions and heritage promotional activities";
+    glad:functionIsSourceOfFunctionPerformanceRelation glad:001_003_FPR;
+    glad:hasCOFOGClass glad:001_COFOG_Class.
+
+glad:004_Function a glad:Function;
+    skos:prefLabel "must conduct a records management programme for the efficient creation, utilisation, maintenance, retention, preservation and disposal of public records";
+    glad:functionIsSourceOfFunctionPerformanceRelation glad:001_004_FPR;
+    glad:hasCOFOGClass glad:001_COFOG_Class.
+
+glad:005_Function a glad:Function;
+    skos:prefLabel "must advise public offices concerning standards and procedures pertaining to the management of public records";
+    glad:functionIsSourceOfFunctionPerformanceRelation glad:001_005_FPR;
+    glad:hasCOFOGClass glad:001_COFOG_Class.
+
+glad:006_Function a glad:Function;
+    skos:prefLabel "may provide information, consultation, research and other services related to archives";
+    glad:functionIsSourceOfFunctionPerformanceRelation glad:001_006_FPR;
+    glad:hasCOFOGClass glad:001_COFOG_Class.
+
+glad:007_Function a glad:Function;
+    skos:prefLabel "may, subject to the terms and conditions (if any) on which the public archives were acquired, reproduce or publish any public archives";
+    glad:functionIsSourceOfFunctionPerformanceRelation glad:001_007_FPR;
+    glad:hasCOFOGClass glad:001_COFOG_Class.
+
+glad:008_Function a glad:Function;
+    skos:prefLabel "may acquire by purchase, donations, bequest or otherwise any document, book or other material which, in the opinion of the Board, is or is likely to be of national or historical significance";
+    glad:functionIsSourceOfFunctionPerformanceRelation glad:001_008_FPR;
+    glad:hasCOFOGClass glad:001_COFOG_Class.
+
+#COFOG Classes
+glad:001_COFOG_C a glad:COFOGClass;
+    skos:prefLabel "Other General Services";
+    glad:hasCOFOGGroup glad:001_COFOG_Group .
+
+#COFOG Groups
+glad:001_COFOG_G a glad:COFOGGroup;
+    skos:prefLabel "General Services";
+    glad:hasCOFOGDivision glad:001_COFOG_Division .
+
+#COFOG Divisions
+glad:001_COFOG_D a glad:COFOGDivision;
+    skos:prefLabel "General Public Services".
+
+
+#Hierarchical Relations
+glad:001_020_GBSE_HR a glad:GovernmentBodySubEntityHierarchicalRelation;
+    skos:prefLabel "NLB to NAS Hierarchical Relation (GB-SE)";
+    glad:governmentBodySubEntityHierarchicalRelationHasSource glad:020_Agency_URI .
+
+#Additional entities
+glad:020_Agency_URI a glad:StatutoryBoard ;
+    skos:prefLabel "National Library Board"@en.
